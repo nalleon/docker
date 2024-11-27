@@ -153,8 +153,6 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 <div align="center">
 <img src="./img/p1-8.png"/>
 </div>
-
-
 </br>
 
 ***
