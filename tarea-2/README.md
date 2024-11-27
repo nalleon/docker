@@ -1,6 +1,6 @@
 <div align="justify">
 
-## React - Dossier
+## Tarea 2
 
 - [Práctica 01](#práctica-01)
 - [Práctica 02](#práctica-02)
