@@ -8,7 +8,7 @@
     - [Práctica 01.3](#práctica-013)
     - [Práctica 01.4](#práctica-014)
     - [Práctica 01.5](#práctica-015)
-        - [Práctica 01.5](#práctica-015)
+    - [Práctica 01.6](#práctica-016)
 
 ***
 
@@ -158,7 +158,7 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 
 ***
 
-#### Práctica 01.6
+#### Práctica 01.5
 
 > 📂
 > Conectar CloudBeaver a MariaDB
