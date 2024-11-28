@@ -133,7 +133,7 @@ docker ps -a
 #### Práctica 01.5
 
 > 📂
-> DAcceder a la interfaz de CloudBeaver
+> Acceder a la interfaz de CloudBeaver
 Abre un navegador web.
 Navega a la dirección http://localhost:8978.
 Sigue las instrucciones de configuración inicial.
@@ -154,5 +154,22 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 <img src="./img/p1-8.png"/>
 </div>
 </br>
+
+***
+
+#### Práctica 01.5
+
+> 📂
+> Conectar CloudBeaver a MariaDB
+>
+
+- Captura:
+<div align="center">
+<img src="./img/p1-9.png"/>
+<img src="./img/p1-10.png"/>
+<img src="./img/p1-11.png"/>
+<img src="./img/p1-12.png"/>
+</div>
+
 
 ***
