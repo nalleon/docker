@@ -9,7 +9,7 @@
     - [Práctica 01.4](#práctica-014)
     - [Práctica 01.5](#práctica-015)
     - [Práctica 01.6](#práctica-016)
-
+    - [Práctica 01.7](#práctica-017)
 ***
 
 ### Práctica 01
@@ -17,18 +17,17 @@
 #### Práctica 01.1
 
 > 📂
-> Descargar e iniciar un contenedor MariaDB. Ejecuta el siguiente comando para descargar la imagen oficial de MariaDB y crear un contenedor:
+> Lista el conjunto de redes disponibles en este momento.
 >
 
 - Comando:
 ```bash
-docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=exampledb -p 3306:3306 -d mariadb:latest
+docker network ls
 ```
 
 - Captura:
 <div align="center">
 <img src="./img/p1-1.png"/>
-<img src="./img/p1-2.png"/>
 </div>
 
 <br>
@@ -38,19 +37,17 @@ docker run --name mariadb-container -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABA
 #### Práctica 01.2
 
 > 📂
-> Verificar logs en caso de problemas
-Si la aplicación de ejemplo tampoco funciona, revisa los logs de Tomcat para detectar posibles errores:
+> Docker necesita una red personalizada para que los contenedores puedan comunicarse entre sí. Ejecuta el siguiente comando:
 >
 
-En este caso no han habido ninguna incidencia. 
 
 ```bash
-docker logs -f mariadb-container
+docker network create tomcat-network
 ```
 
 - Captura:
 <div align="center">
-<img src="./img/p1-3.png"/>
+<img src="./img/p1-2.png"/>
 </div>
 
 </br>
@@ -61,44 +58,20 @@ docker logs -f mariadb-container
 #### Práctica 01.3
 
 > 📂
-> Puedas o no acceder, intenta usar la IP del contenedor Docker (que puedes obtener con docker inspect).
+> Levanta dos contenedores Tomcat y conéctalos a la red tomcat-network.
 >
 
 
 ```bash
-docker inspect mariadb-container
+docker run -d --name tomcat1 --network tomcat-network -p 8081:8080 tomcat:latest
+docker run -d --name tomcat2 --network tomcat-network -p 8082:8080 tomcat:latest
 ```
 
-- Salida:
-```bash
-[
-    {
-        "Id": "04b20019f71a7678924c6f7758f852573d5e488b290cb154dc834bdbb2105c34",
-        "Created": "2024-11-27T16:03:30.271178131Z",
-        "Path": "docker-entrypoint.sh",
-        "Args": [
-            "mariadbd"
-        ],
-        "State": {
-            "Status": "running",
-            "Running": true,
-            "Paused": false,
-            "Restarting": false,
-            "OOMKilled": false,
-            "Dead": false,
-            "Pid": 49268,
-            "ExitCode": 0,
-            "Error": "",
-            "StartedAt": "2024-11-27T16:03:31.62774727Z",
-            "FinishedAt": "0001-01-01T00:00:00Z"
-        },
-        "Image": "sha256:052f9e69b7b03f7464f4579766e30a795ebf8e93c65cf47698e2869bf882bbe3",
-        "ResolvConfPath": "/var/lib/docker/containers/04b20019f71a7678924c6f7758f852573d5e488b290cb154dc834bdbb2105c34/resolv.conf",
+- Captura:
+<div align="center">
+<img src="./img/p1-3.png"/>
+</div>
 
-        ...
-    }
-]
-```
 
 </br>
 
@@ -107,22 +80,18 @@ docker inspect mariadb-container
 #### Práctica 01.4
 
 > 📂
-> Descargar y ejecutar CloudBeaver en Docker
-Ejecuta el siguiente comando para iniciar un contenedor de CloudBeaver:
+> Muestra los contenedores dockers activos en ese momento
 >
 
 - Comandos:
 ```bash
-docker run -d --name cloudbeaver -p 8978:8978 dbeaver/cloudbeaver:latest
-
-docker ps -a
+docker ps
 ```
 
 
 - Captura:
 <div align="center">
 <img src="./img/p1-4.png"/>
-<img src="./img/p1-5.png"/>
 
 </div>
 
@@ -134,42 +103,65 @@ docker ps -a
 #### Práctica 01.5
 
 > 📂
-> Acceder a la interfaz de CloudBeaver
-Abre un navegador web.
-Navega a la dirección http://localhost:8978.
-Sigue las instrucciones de configuración inicial.
-Realiza la configuración del cliente.
+> Crea el fichero de balance nginx.conf en el mismo direcctorio donde estes ejecutando la consola de comandos.
 >
+
+- Contenido de nginx:
+```bash
+events {}
+
+http {
+    upstream tomcat_backend {
+        server tomcat1:8080;
+        server tomcat2:8080;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://tomcat_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+}
+```
+
+- Comando:
+```bash
+docker run -d --name nginx --network tomcat-network -p 8090:80 -v /home/dam/nginx.conf:/etc/nginx/nginx.conf nginx:latest
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p1-5.png"/>
+</div>
+
+</br>
+
+***
+
+#### Práctica 01.6
+
+> 📂
+> Verificar que todo esta funcionando correctamente Servidor NGINX
+Verifica el comportamiento en:
+>
+
+- Comprobar:
+```bash
+http://localhost:8081
+http://localhost:8082
+http://localhost:9090
+```
 
 - Captura:
 <div align="center">
 <img src="./img/p1-6.png"/>
 <img src="./img/p1-7.png"/>
-
-</div>
-
-Podemos apreciar como podemos logearnos perfectamente con nuestro administrador. Aquí podemos apreciar el perfil del admin.
-
-- Captura:
-<div align="center">
 <img src="./img/p1-8.png"/>
-</div>
-</br>
-
-***
-
-#### Práctica 01.5
-
-> 📂
-> Conectar CloudBeaver a MariaDB
->
-
-- Captura:
-<div align="center">
-<img src="./img/p1-9.png"/>
-<img src="./img/p1-10.png"/>
-<img src="./img/p1-11.png"/>
-<img src="./img/p1-12.png"/>
 </div>
 
 
@@ -180,8 +172,10 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 #### Práctica 01.7
 
 > 📂
-> Conectar CloudBeaver a MariaDB
->
+> Realiza el despliegue de la aplicación sample repitiendo los pasos del apartado anterior comprobando los puertos 8081,8082 y 9090 de localhost.
+
+
+
 
 - Captura:
 <div align="center">
@@ -189,8 +183,8 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 <img src="./img/p1-10.png"/>
 <img src="./img/p1-11.png"/>
 <img src="./img/p1-12.png"/>
+<img src="./img/p1-13.png"/>
 </div>
-
 
 
 <br>
