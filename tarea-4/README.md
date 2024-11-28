@@ -8,7 +8,8 @@
     - [Práctica 01.3](#práctica-013)
     - [Práctica 01.4](#práctica-014)
     - [Práctica 01.5](#práctica-015)
-        - [Práctica 01.5](#práctica-015)
+    - [Práctica 01.6](#práctica-016)
+    - [Práctica 01.7](#práctica-017)
 
 ***
 
@@ -173,4 +174,23 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 </div>
 
 
+***
+
+<br>
+
+
+#### Práctica 01.7
+
+> 📂
+> Detener y eliminar contenedores
+>
+
+- Captura:
+<div align="center">
+<img src="./img/p1-13.png"/>
+</div>
+
+
+
+<br>
 ***

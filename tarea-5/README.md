@@ -1,6 +1,6 @@
 <div align="justify">
 
-## Tarea 4
+## Tarea 5
 
 - [Práctica 01](#práctica-01)
     - [Práctica 01.1](#práctica-011)
@@ -173,4 +173,25 @@ Podemos apreciar como podemos logearnos perfectamente con nuestro administrador.
 </div>
 
 
+
+<br>
+***
+
+#### Práctica 01.7
+
+> 📂
+> Conectar CloudBeaver a MariaDB
+>
+
+- Captura:
+<div align="center">
+<img src="./img/p1-9.png"/>
+<img src="./img/p1-10.png"/>
+<img src="./img/p1-11.png"/>
+<img src="./img/p1-12.png"/>
+</div>
+
+
+
+<br>
 ***
