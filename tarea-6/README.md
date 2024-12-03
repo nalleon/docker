@@ -10,6 +10,14 @@
     - [Práctica 01.5](#práctica-015)
     - [Práctica 01.6](#práctica-016)
     - [Práctica 01.7](#práctica-017)
+    - [Práctica 01.8](#práctica-018)
+    - [Práctica 01.9](#práctica-019)
+    - [Práctica 01.11](#práctica-0111)
+    - [Práctica 01.12](#práctica-0112)
+    - [Práctica 01.13](#práctica-0113)
+    - [Práctica 01.14](#práctica-0114)
+    - [Práctica 01.15](#práctica-0115)
+    - [Práctica 01.16](#práctica-0116)
 ***
 
 ### Práctica 01
@@ -192,6 +200,7 @@ docker logs mongo-express-container
 </div>
 
 <br>
+
 ***
 
 
@@ -213,6 +222,7 @@ localhost:8081
 </div>
 
 <br>
+
 ***
 
 
@@ -228,6 +238,7 @@ localhost:8081
 </div>
 
 <br>
+
 ***
 
 
@@ -243,6 +254,7 @@ localhost:8081
 </div>
 
 <br>
+
 ***
 
 
@@ -259,6 +271,7 @@ localhost:8081
 </div>
 
 <br>
+
 ***
 
 #### Práctica 01.12
@@ -274,6 +287,7 @@ localhost:8081
 </div>
 
 <br>
+
 ***
 
 #### Práctica 01.13
@@ -293,23 +307,10 @@ docker exec -it mongodb-container mongosh -u admin -p admin123
 </div>
 
 <br>
+
 ***
 
 #### Práctica 01.14
-
-> 📂
-> Realiza la verificación con la conectividad de la BBDD. Lanza el siguiente comando:
->
-
-- Comando:
-```bash
-docker exec -it mongodb-container mongosh -u admin -p admin123
-```
-
-- Captura:
-<div align="center">
-<img src="./img/p1-16.png"/>
-</div>
 
 > 📂
 > Utiliza la BBDD testdb y lista las coleciones.
@@ -361,10 +362,11 @@ db.users.find()
 </div>
 
 <br>
+
 ***
 
 
-#### Práctica 01.16
+#### Práctica 01.15
 
 > 📂
 > Detener y eliminar contenedores
@@ -382,6 +384,23 @@ docker rm mongo-express-container
 <div align="center">
 <img src="./img/p1-22.png"/>
 <img src="./img/p1-23.png"/>
+</div>
+
+
+<br>
+
+***
+
+#### Práctica 01.16
+
+> 📂
+> Realiza nuevamente la instalación de los contenedores y verifica el estado de la bbdd testdb.
+>
+
+- Captura:
+<div align="center">
+<img src="./img/p1-24.png"/>
+<img src="./img/p1-25.png"/>
 </div>
 
 
