@@ -13,17 +13,6 @@ RUN apt-get update -y && \
 # Configurar MariaDB usando la imagen oficial
 FROM mariadb:10.5
 
-# Configurar Tomcat usando la imagen oficial
-#FROM tomcat:latest
-
-#COPY ./assets/sample.war /usr/local/tomcat/webapps
-
-# Descargar y configurar CloudBeaver utilizando la imagen oficial de CloudBeaver desde Docker Hub
-# FROM dbeaver/cloudbeaver:latest
-
-# Exponer puertos
-EXPOSE 8080 8081 8082
-
 # Volúmenes para MariaDB
 VOLUME /var/lib/mysql
 
@@ -31,11 +20,24 @@ VOLUME /var/lib/mysql
 ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_DATABASE=exampledb
 
-# Iniciar los servicios de MariaDB, Tomcat y CloudBeaver
-#CMD service mysql start 
+EXPOSE 3306
 
-# && \
-#    /opt/tomcat/bin/catalina.sh run & \
-#     /opt/cloudbeaver/cloudbeaver/bin/cloudbeaver & \
-#    wait
+# Configurar Tomcat usando la imagen oficial
+FROM tomcat:latest
+
+COPY ./assets/sample.war /usr/local/tomcat/webapps
+
+EXPOSE 8081
+
+# Descargar y configurar CloudBeaver utilizando la imagen oficial de CloudBeaver desde Docker Hub
+FROM dbeaver/cloudbeaver:latest
+
+# Exponer puertos
+EXPOSE 8082
+
+# Iniciar los servicios de MariaDB, Tomcat y CloudBeaver
+CMD service mysql start  && \
+    /opt/tomcat/bin/catalina.sh run & \
+    /opt/cloudbeaver/cloudbeaver/bin/cloudbeaver & \
+    wait
 

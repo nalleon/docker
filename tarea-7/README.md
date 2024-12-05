@@ -10,16 +10,7 @@ El objetivo de este ejercicio es crear un entorno con Docker que incluya un serv
     - [Práctica 01.3](#práctica-013)
     - [Práctica 01.4](#práctica-014)
     - [Práctica 01.5](#práctica-015)
-    - [Práctica 01.6](#práctica-016)
-    - [Práctica 01.7](#práctica-017)
-    - [Práctica 01.8](#práctica-018)
-    - [Práctica 01.9](#práctica-019)
-    - [Práctica 01.11](#práctica-0111)
-    - [Práctica 01.12](#práctica-0112)
-    - [Práctica 01.13](#práctica-0113)
-    - [Práctica 01.14](#práctica-0114)
-    - [Práctica 01.15](#práctica-0115)
-    - [Práctica 01.16](#práctica-0116)
+
 ***
 
 ### Práctica 01

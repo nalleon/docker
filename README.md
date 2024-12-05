@@ -4,7 +4,7 @@
 
 >✒️ __Autor__: Nabil L.A. ([@nalleon](https://github.com/nalleon))
 
-Repositorio dedicado a actividades de docker realizidas durante el curso 2024-2025 en el módulo de programación de servicios y procesos (PGV).
+Repositorio dedicado a actividades de docker realizadas durante el curso 2024-2025 en el módulo de programación de servicios y procesos (PGV).
 
 
 <div align="center">
