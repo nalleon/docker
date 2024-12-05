@@ -11,10 +11,10 @@ RUN apt-get update -y && \
     && rm -rf /var/lib/apt/lists/*
 
 # Configurar MariaDB usando la imagen oficial
-FROM mariadb:10.5
+FROM mariadb:latest
 
-# Volúmenes para MariaDB
-VOLUME /var/lib/mysql
+# Volúmenes para MariaDB    
+VOLUME tomcat_mariadb_cloudbeaver_volume
 
 # Configuración de MariaDB: Establecer la contraseña root y crear la base de datos (esto es suficiente con las variables de entorno)
 ENV MYSQL_ROOT_PASSWORD=root
@@ -33,11 +33,11 @@ EXPOSE 8081
 FROM dbeaver/cloudbeaver:latest
 
 # Exponer puertos
-EXPOSE 8082
+EXPOSE 8978
 
 # Iniciar los servicios de MariaDB, Tomcat y CloudBeaver
-CMD service mysql start  && \
-    /opt/tomcat/bin/catalina.sh run & \
-    /opt/cloudbeaver/cloudbeaver/bin/cloudbeaver & \
+CMD service mysql start && \
+    /opt/tomcat/bin/catalina.sh run && \
+    /opt/cloudbeaver/cloudbeaver/bin/cloudbeaver && \
     wait
 
