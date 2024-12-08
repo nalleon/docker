@@ -20,5 +20,6 @@ Repositorio dedicado a actividades de docker realizadas durante el curso 2024-20
 - [Tarea 4 - Informe](./tarea-4/README.md)
 - [Tarea 5 - Informe](./tarea-5/README.md)
 - [Tarea 6 - Informe](./tarea-6/README.md)
+- [Tarea 7 - Informe](./tarea-7/README.md)
 
 </div>
