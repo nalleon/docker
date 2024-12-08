@@ -94,20 +94,40 @@ Para evitar los problemas de utilizar multiples imagenes en un mismo dockerfile 
 
 - TomcatDockerfile:
 
-```text
+```bash
+# Usar la imagen oficial de Tomcat
+FROM tomcat:latest
 
+# Copiar la aplicación web al directorio de Tomcat
+COPY ./assets/sample.war /usr/local/tomcat/webapps/
+
+# Exponer el puerto de Tomcat
+EXPOSE 8080
 ```
 
 - MariaDBDockerfile:
 
-```text
+```bash
+# Usar la imagen oficial de MariaDB
+FROM mariadb:latest
+
+# Establecer configuración inicial
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=exampledb
+
+# Exponer el puerto de MariaDB
+EXPOSE 3306
 
 ```
 
 - CloudBeaverDockerfile:
 
-```text
+```bash
+# Usar la imagen oficial de CloudBeaver
+FROM dbeaver/cloudbeaver:latest
 
+# Exponer el puerto de CloudBeaver
+EXPOSE 8978
 ```
 
 <br>
@@ -118,12 +138,14 @@ Para evitar los problemas de utilizar multiples imagenes en un mismo dockerfile 
 #### Práctica 01.5
 
 > 📂
-> Construcción de la imagen.
+> Construcción de las imagenes.
 >
 
 - Comando:
 ```bash
-docker build -t tomcat-mariadb-cloudbeaver .
+ docker build -t tarea7-tomcat-img -f TomcatDockerfile .
+ docker build -t tarea7-mariadb-img -f MariaDBDockerfile .
+ docker build -t tarea7-cloudbeaver-img -f CloudBeaverDockerfile .
 ```
 
 <br>
@@ -139,11 +161,51 @@ docker build -t tomcat-mariadb-cloudbeaver .
 - Comando:
 
 ```bash
-docker run --name tarea7 -d -p 8091:8081 -p 8978:8978 -p 3306:3306 tomcat-mariadb-cloudbeaver
+ docker run --name tomcat-container -d -p 8091:8080 tarea7-tomcat-img
+ docker run --name mariadb-container -d -p 3306:3306 tarea7-mariadb-img
+ docker run --name cloudbeaver-container -d -p 8978:8978 tarea7-cloudbeaver-img
 ```
 
 <br>
 
 ***
+
+#### Práctica 01.6
+
+> 📂
+> Añadimos manualmente nuestros contenedores a la red
+>
+
+- Comando:
+
+```bash
+docker network connect network_tomcat_mariadb_cloudbeaver tomcat-container
+docker network connect network_tomcat_mariadb_cloudbeaver mariadb-container
+docker network connect network_tomcat_mariadb_cloudbeaver cloudbeaver-container
+```
+
+<br>
+
+#### Práctica 01.7
+
+> 📂
+> Tratamos de acceder a CloudBeaver y testear la conexión con la bbdd así cómo probar que tomcat esta ejecutandose
+>
+
+- Direcciones a comprobar:
+
+```bash
+localhost:8978
+localhost:8091/sample
+```
+
+<br>
+
+
+- Captura:
+<div align="center">
+<img src="./img/p1-1.png"/>
+</div>
+
 
 </div>
