@@ -10,6 +10,9 @@ El objetivo de este ejercicio es crear un entorno con Docker que incluya un serv
     - [Práctica 01.3](#práctica-013)
     - [Práctica 01.4](#práctica-014)
     - [Práctica 01.5](#práctica-015)
+    - [Práctica 01.6](#práctica-016)
+    - [Práctica 01.7](#práctica-017)
+    - [Práctica 01.8](#práctica-018)
 
 ***
 
@@ -148,11 +151,19 @@ EXPOSE 8978
  docker build -t tarea7-cloudbeaver-img -f CloudBeaverDockerfile .
 ```
 
+- Capturas:
+<div align="center">
+<img src="./img/p1-6.png"/>
+<img src="./img/p1-7.png"/>
+<img src="./img/p1-8.png"/>
+</div>
+
+
 <br>
 
 ***
 
-#### Práctica 01.5
+#### Práctica 01.6
 
 > 📂
 > Ejecución del contenedor
@@ -166,11 +177,17 @@ EXPOSE 8978
  docker run --name cloudbeaver-container -d -p 8978:8978 tarea7-cloudbeaver-img
 ```
 
+- Capturas:
+<div align="center">
+<img src="./img/p1-9.png"/>
+<img src="./img/p1-9-2.png"/>
+</div>
+
 <br>
 
 ***
 
-#### Práctica 01.6
+#### Práctica 01.7
 
 > 📂
 > Añadimos manualmente nuestros contenedores a la red
@@ -186,7 +203,7 @@ docker network connect network_tomcat_mariadb_cloudbeaver cloudbeaver-container
 
 <br>
 
-#### Práctica 01.7
+#### Práctica 01.8
 
 > 📂
 > Tratamos de acceder a CloudBeaver y testear la conexión con la bbdd así cómo probar que tomcat esta ejecutandose
@@ -199,13 +216,45 @@ localhost:8978
 localhost:8091/sample
 ```
 
+
+
+
+- Capturas:
+<div align="center">
+<img src="./img/p1-9.png"/>
+<img src="./img/p1-10.png"/>
+<img src="./img/p1-11.png"/>
+</div>
+
 <br>
 
+#### Práctica 01.8
 
-- Captura:
+> 📂
+> Detener y eliminar los contenedores
+>
+
+- Comandos:
+
+```bash
+docker stop tomcat-container
+docker stop mariadb-container
+docker stop cloudbeaver-container
+docker rm tomcat-container
+docker rm mariadb-container
+docker rm cloudbeaver-container
+```
+
+
+
+
+- Capturas:
 <div align="center">
-<img src="./img/p1-1.png"/>
+<img src="./img/p1-12.png"/>
+<img src="./img/p1-13.png"/>
 </div>
+
+<br>
 
 
 </div>
