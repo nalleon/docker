@@ -1,0 +1,8 @@
+# Usar la imagen oficial de Tomcat
+FROM tomcat:latest
+
+# Copiar la aplicación web al directorio de Tomcat
+COPY ./assets/sample.war /usr/local/tomcat/webapps/
+
+# Exponer el puerto de Tomcat
+EXPOSE 8081

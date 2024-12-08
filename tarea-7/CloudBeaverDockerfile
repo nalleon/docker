@@ -1,0 +1,5 @@
+# Usar la imagen oficial de CloudBeaver
+FROM dbeaver/cloudbeaver:latest
+
+# Exponer el puerto de CloudBeaver
+EXPOSE 8978
