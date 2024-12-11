@@ -13,6 +13,7 @@ El objetivo de este ejercicio es crear un entorno con Docker que incluya un serv
     - [Práctica 01.6](#práctica-016)
     - [Práctica 01.7](#práctica-017)
     - [Práctica 01.8](#práctica-018)
+- [Extra](#extra)
 
 ***
 
@@ -255,6 +256,62 @@ docker rm cloudbeaver-container
 </div>
 
 <br>
+
+### Extra
+
+> 📂
+> Utilizar docker-compose para hacer uso de un único archivo:
+>
+
+- Docker Compose:
+
+```bash
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb:11.1.2
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exampledb
+    volumes:
+      - tomcat_mariadb_cloudbeaver_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - network_tomcat_mariadb_cloudbeaver
+
+  tomcat:
+    image: tomcat:10.1.9-jdk17
+    container_name: tomcat
+    ports:
+      - "8091:8080"
+    volumes:
+      - ./assets/sample.war:/usr/local/tomcat/webapps/sample.war
+    networks:
+      - network_tomcat_mariadb_cloudbeaver
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:23.3.0
+    container_name: cloudbeaver
+    ports:
+      - "8978:8978"
+    networks:
+      - network_tomcat_mariadb_cloudbeaver
+
+volumes:
+  tomcat_mariadb_cloudbeaver_volume:
+networks:
+  network_tomcat_mariadb_cloudbeaver:
+```
+
+- Capturas:
+
+<div align="center">
+    <img src="./img/p1-14.png"/>
+    <img src="./img/p1-15.png"/>
+    <img src="./img/p1-16.png"/>
+</div>
 
 
 </div>

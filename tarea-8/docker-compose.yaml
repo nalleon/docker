@@ -7,21 +7,35 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: exampledb
     volumes:
-      - tomcat_mariadb_cloudbeaver_volume:/var/lib/mysql
+      - tarea8_volume:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
-      - network_tomcat_mariadb_cloudbeaver
+      - tarea8_network
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - tarea8_volume:/var/lib/mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - tarea8_network
 
   tomcat:
     image: tomcat:10.1.9-jdk17
     container_name: tomcat
     ports:
       - "8091:8080"
+      - "8092:8080"
     volumes:
       - ./assets/sample.war:/usr/local/tomcat/webapps/sample.war
     networks:
-      - network_tomcat_mariadb_cloudbeaver
+      - tarea8_network
 
   cloudbeaver:
     image: dbeaver/cloudbeaver:23.3.0
@@ -29,9 +43,9 @@ services:
     ports:
       - "8978:8978"
     networks:
-      - network_tomcat_mariadb_cloudbeaver
+      - tarea8_network
 
 volumes:
-  tomcat_mariadb_cloudbeaver_volume:
+  tarea8_volume:
 networks:
-  network_tomcat_mariadb_cloudbeaver:
+  tarea8_network:
