@@ -20,9 +20,21 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin123
     volumes:
-      - tarea8_volume:/var/lib/mongodb
+      - tarea8_volume:/data/db
     ports:
       - "27017:27017"
+    networks:
+      - tarea8_network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongodb-express-container
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin123
+      ME_CONFIG_MONGODB_SERVER: mongodb-container
+    ports:
+      - "8081:8081"
     networks:
       - tarea8_network
 
