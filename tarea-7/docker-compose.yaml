@@ -1,0 +1,45 @@
+version: '3'
+services:
+  app-tarea8:
+    image: nalleon14716/app-tarea8-image
+    container_name: tarea8-container
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - tarea8-network
+
+#  app-tarea8-webserver:
+#    image: nalleon14716/app-tarea8-nginx-webserver-image
+#    container_name: app-tarea8-nginx-webserver
+#    restart: unless-stopped
+#    ports:
+#      - "8080:80"
+#    volumes:
+#     - .:/var/www
+#      - ./docker-compose/nginx:/etc/nginx/conf.d/
+#    networks:
+#      - app-tarea8-network
+
+  app-tarea8-mysqldb:
+    image: mysql:8.3.0
+    container_name: app-tarea8-mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 1q2w3e4r
+    ports:
+      - "3306:3306"
+    volumes:
+      - tarea8-volume
+      - ./docker-compose/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-tarea8-network
+
+volumes:
+  tarea8-volume:
+networks:
+  tarea8-network:
