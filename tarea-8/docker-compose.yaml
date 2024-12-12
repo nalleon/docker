@@ -38,11 +38,21 @@ services:
     networks:
       - tarea8_network
 
-  tomcat:
+  tomcat1:
     image: tomcat:10.1.9-jdk17
-    container_name: tomcat
+    container_name: tomcat1
     ports:
       - "8091:8080"
+    volumes:
+      - ./assets/sample.war:/usr/local/tomcat/webapps/sample.war
+    networks:
+      - tarea8_network
+
+
+  tomcat2:
+    image: tomcat:10.1.9-jdk17
+    container_name: tomcat2
+    ports:
       - "8092:8080"
     volumes:
       - ./assets/sample.war:/usr/local/tomcat/webapps/sample.war
