@@ -9,10 +9,6 @@ El objetivo de este ejercicio es crear un entorno con Docker que incluya dos ser
     - [Práctica 01.2](#práctica-012)
     - [Práctica 01.3](#práctica-013)
     - [Práctica 01.4](#práctica-014)
-    - [Práctica 01.5](#práctica-015)
-    - [Práctica 01.6](#práctica-016)
-    - [Práctica 01.7](#práctica-017)
-    - [Práctica 01.8](#práctica-018)
 
 ***
 
@@ -70,15 +66,76 @@ docker volume ls
 #### Práctica 01.3
 
 > 📂
-> A continuación, creamos un Dockerfile que instalará Tomcat, MariaDB y CloudBeaver.
+> A continuación, creamos un Dockerfile que instalará Tomcat, MariaDB, MongoDb y CloudBeaver.
 >
 
-Para evitar los problemas de utilizar multiples imagenes en un mismo dockerfile y que perdamos la información, hemos decidido crear un Dockerfile para cada Tomcat, MariaDB y CloudBeaver respectivamente.
 
 - Dockerfile:
 
 ```bash
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb:11.1.2
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exampledb
+    volumes:
+      - tarea8_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - tarea8_network
 
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - tarea8_volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - tarea8_network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: express
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin123
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    ports:
+      - "8081:8081"
+    networks:
+      - tarea8_network
+
+  tomcat:
+    image: tomcat:10.1.9-jdk17
+    container_name: tomcat
+    ports:
+      - "8091:8080"
+      - "8092:8080"
+    volumes:
+      - ./assets/sample.war:/usr/local/tomcat/webapps/sample.war
+    networks:
+      - tarea8_network
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:23.3.0
+    container_name: cloudbeaver
+    ports:
+      - "8978:8978"
+    networks:
+      - tarea8_network
+
+volumes:
+  tarea8_volume:
+networks:
+  tarea8_network:
 ```
 
 <br>
@@ -86,116 +143,44 @@ Para evitar los problemas de utilizar multiples imagenes en un mismo dockerfile 
 ***
 
 
-#### Práctica 01.5
+#### Práctica 01.4
 
 > 📂
-> Construcción de las imagenes.
+> Demostrar funcionalidad
 >
 
 - Comando:
 ```bash
- docker build -t solucion-servicios .
- docker ps -a 
+ docker compose up
+ docker ps
 ```
 
 - Capturas:
 <div align="center">
-<img src="./img/p1-6.png"/>
-<img src="./img/p1-7.png"/>
-<img src="./img/p1-8.png"/>
-</div>
-
-
-<br>
-
-***
-
-#### Práctica 01.6
-
-> 📂
-> Ejecución del contenedor
->
-
-- Comando:
-
-```bash
-docker run --name tarea8 -d -p 8091:8080 -p 8092:8080 -p 3306:3306 -p 27017:27017 -p 8978:8978 solucion-servicios
-```
-
-- Capturas:
-<div align="center">
-<img src="./img/p1-9.png"/>
-<img src="./img/p1-9-2.png"/>
-</div>
-
-<br>
-
-***
-
-#### Práctica 01.7
-
-> 📂
-> Añadimos manualmente nuestros contenedores a la red
->
-
-- Comando:
-
-```bash
-docker network connect network_tomcat_mariadb_cloudbeaver tomcat-container
-docker network connect network_tomcat_mariadb_cloudbeaver mariadb-container
-docker network connect network_tomcat_mariadb_cloudbeaver cloudbeaver-container
-```
-
-<br>
-
-#### Práctica 01.8
-
-> 📂
-> Tratamos de acceder a CloudBeaver y testear la conexión con la bbdd así cómo probar que tomcat esta ejecutandose
->
-
-- Direcciones a comprobar:
-
-```bash
-localhost:8978
-localhost:8091/sample
-```
-
-
-
-
-- Capturas:
-<div align="center">
-<img src="./img/p1-9.png"/>
-<img src="./img/p1-10.png"/>
 <img src="./img/p1-11.png"/>
 </div>
 
-<br>
 
-#### Práctica 01.8
-
-> 📂
-> Detener y eliminar los contenedores
->
-
-- Comandos:
-
+- Comprobaciones:
 ```bash
-docker stop solucion-servicios
-docker rm solucion-servicios
+http://localhost:8978/
+http://localhost:27017/
+http://localhost:9091
+http://localhost:9092
+http://localhost:8081/
 ```
-
-
-
 
 - Capturas:
 <div align="center">
-<img src="./img/p1-12.png"/>
-<img src="./img/p1-13.png"/>
+    <img src="./img/p1-4.png"/>
+    <img src="./img/p1-5.png"/>
+    <img src="./img/p1-6.png"/>
+    <img src="./img/p1-7.png"/>
+    <img src="./img/p1-8.png"/>
+    <img src="./img/p1-9.png"/>
+    <img src="./img/p1-10.png"/>
 </div>
 
 <br>
-
 
 </div>
